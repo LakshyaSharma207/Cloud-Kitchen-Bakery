@@ -120,13 +120,13 @@ const signInWithEmailPass = async () => { setIsClicked(true);
 
   return (
     <div className='w-screen h-screen relative overflow-hidden flex justify-center items-center'>
-        {/* background image  */}
+        {/* background Image by rawpixel.com on Freepik*/}
         <img 
         src={LoginBg} 
         className='w-full h-full object-cover absolute top-0 left-0'
         alt="background" 
         />
-
+        
         {/* Content Box */}
         <div className='flex flex-col items-center bg-themeColor w-[40%] h-[80%] rounded-lg backdrop-blur-md gap-6 bg-opacity-70 z-10'>
           <img src={Logo} className='w-[255px]' />
