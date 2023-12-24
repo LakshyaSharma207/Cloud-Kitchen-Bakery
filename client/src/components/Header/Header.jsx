@@ -34,7 +34,7 @@ export default function Header() {
     }
     
   return (
-    <header className='fixed inset-x-0 z-10 top-0 flex items-center justify-between px-5 bg-themeColor'>
+    <header className='fixed inset-x-0 z-10 top-0 flex items-center justify-between px-5 bg-transparent'>
         <NavLink to={'/'}>
             <img src={Logo} className='w-[280px]' alt='logo' />
         </NavLink>

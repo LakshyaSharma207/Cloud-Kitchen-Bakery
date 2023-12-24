@@ -10,6 +10,7 @@ export default function AddNewItem() {
   const [itemType, setType] = useState('');
   const [itemImage, setItemImage] = useState(null);
   const [itemURL, setURL] = useState('');
+  const [itemPrice, setItemPrice] = useState(0);
   const db = getFirestore(app)
   
   function handleTypeSelection(type) {
@@ -49,6 +50,7 @@ export default function AddNewItem() {
         in_stock: parseInt(itemQuantity, 10),
         need_to_order: 0,
         type: itemType,
+        price: parseInt(itemPrice, 10),
         icon: itemURL, 
       });
       console.log('Document added with ID: ', docRef.id);
@@ -57,6 +59,7 @@ export default function AddNewItem() {
       setQuantity(0);
       setType('');
       setURL('');
+      setItemPrice(0)
       setItemImage(null);
     } catch (error) {
       console.error('Error adding document: ', error);
@@ -64,7 +67,7 @@ export default function AddNewItem() {
   };
 
   return (
-    <div className="flex items-center justify-center flex-col px-7 md:px-24 w-full mt-5">
+    <div className="flex items-center justify-center flex-col px-7 md:px-24 w-full mt-2">
       <h2 className="text-yellow-950 text-2xl font-bold mb-4">Add New Ingredient</h2>
       <label className="mb-2">
         <span className="block text-sm text-gray-600">Ingredient Name:</span>
@@ -85,11 +88,20 @@ export default function AddNewItem() {
         />
       </label>
       <label className="mb-4">
+        <span className="block text-sm text-gray-600">Price:</span>
+        <input
+          type="number"
+          className="w-full border rounded-md py-2 px-5 text-black bg-white focus:outline-none focus:border-yellow-950"
+          value={itemPrice}
+          onChange={(e) => setItemPrice(e.target.value)}
+        />
+      </label>
+      <label className="mb-4">
   <span className="block text-sm text-gray-600 mb-2">Type:</span>
   <div className="border border-gray-300 p-5 rounded-md bg-slate-300">
     <div className="flex space-x-2 px-3">
       <button
-        className="bg-yellow-800 text-white py-2 px-5 rounded-md border-2 border-yellow-800 transition-colors focus:outline-none focus:border-white"
+        className="bg-yellow-800 text-white py-2 px-5 rounded-md border-2 border-yellow-800 transition-colors focus:bg-yellow-900 focus:outline-none focus:border-white"
         onMouseEnter={ (e) => toggleStyle(e) }
         onMouseLeave={ (e) => toggleStyle(e) }
         onClick={() => handleTypeSelection('Sweetner')}
@@ -97,7 +109,7 @@ export default function AddNewItem() {
         Sweetner
       </button>
       <button
-        className="bg-yellow-800 text-white py-2 px-5 rounded-md border-2 border-yellow-800 transition-colors focus:outline-none focus:border-white"
+        className="bg-yellow-800 text-white py-2 px-5 rounded-md border-2 border-yellow-800 transition-colors focus:bg-yellow-900 focus:outline-none focus:border-white"
         onMouseEnter={ (e) => toggleStyle(e) }
         onMouseLeave={ (e) => toggleStyle(e) }
         onClick={() => handleTypeSelection('Flour')}
@@ -105,7 +117,7 @@ export default function AddNewItem() {
         Flour
       </button>
       <button
-        className="bg-yellow-800 text-white py-2 px-5 rounded-md border-2 border-yellow-800 transition-colors focus:outline-none focus:border-white"
+        className="bg-yellow-800 text-white py-2 px-5 rounded-md border-2 border-yellow-800 transition-colors focus:bg-yellow-900 focus:outline-none focus:border-white"
         onMouseEnter={ (e) => toggleStyle(e) }
         onMouseLeave={ (e) => toggleStyle(e) }
         onClick={() => handleTypeSelection('Filling')}
@@ -113,7 +125,7 @@ export default function AddNewItem() {
         Filling
       </button>
       <button
-        className="bg-yellow-800 text-white py-2 px-5 rounded-md border-2 border-yellow-800 transition-colors focus:outline-none focus:border-white"
+        className="bg-yellow-800 text-white py-2 px-5 rounded-md border-2 border-yellow-800 transition-colors focus:bg-yellow-900 focus:outline-none focus:border-white"
         onMouseEnter={ (e) => toggleStyle(e) }
         onMouseLeave={ (e) => toggleStyle(e) }
         onClick={() => handleTypeSelection('Topping')}

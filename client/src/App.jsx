@@ -8,7 +8,7 @@ import { validateUserJWTToken } from './api';
 import { getAuth } from 'firebase/auth';
 import { setUserDetails } from "./context/actions/userActions";
 import Dashboard from './components/Dashboard/Dashboard';
-
+import Customize from './components/Customize/Customize';
 
 function App() {
   const firebaseAuth = getAuth(app);
@@ -33,6 +33,7 @@ function App() {
         <Route path="/*" element={<Main />} />
         <Route path="/login" element={<Login />} />
         <Route path='/dashboard/*' element={<Dashboard />} />
+        <Route path='/customize' element={<Customize />} />
       </Routes>
     </div>
   );

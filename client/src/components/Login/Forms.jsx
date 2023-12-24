@@ -4,7 +4,7 @@ export default function Forms({ placeholder, inputState, inputStateFunction, typ
     const [isClicked, setIsClicked] = useState(false);
     
     return (
-        <div className={`transition-transform transform ${isClicked ? 'scale-105 shadow-lg' : 'scale-100'} flex item-center justify-center gap-4 bg-themeColor backdrop-blur-md rounded-md w-full px-4 py-2`}>
+        <div className={`transition-transform transform ${isClicked ? 'scale-105 shadow-lg' : 'scale-100'} flex item-center justify-center gap-4 bg-[#fdf3ec] backdrop-blur-md rounded-md w-full px-4 py-2`}>
         {icon}
         <input 
             type={type} 

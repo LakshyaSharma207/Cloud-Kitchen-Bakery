@@ -25,6 +25,7 @@ export default function Ingredients() {
             in_stock: doc.data().in_stock,
             name: doc.data().name,
             need_to_order: doc.data().need_to_order,
+            price: doc.data().price,
             type: doc.data().type,
            });
         });
@@ -156,6 +157,7 @@ export default function Ingredients() {
             <TableCell align="center">Icon</TableCell>
             <TableCell align="center">Name</TableCell>
             <TableCell align="center">Type</TableCell>
+            <TableCell align="center">Price</TableCell>
             <TableCell align="center">Need To Order</TableCell>
             <TableCell align="center">In Stock</TableCell>
             <TableCell align="center"></TableCell> 
@@ -167,6 +169,7 @@ export default function Ingredients() {
               <TableCell align="center"><div className='w-[65px] h-[65px] mx-auto'><img src={row.icon}/></div></TableCell>
               <TableCell align="center">{row.name}</TableCell>
               <TableCell align="center">{row.type}</TableCell>
+              <TableCell align="center">${row.price}</TableCell>
               <TableCell align="center">{row.need_to_order}kg</TableCell>
               <TableCell align="center"><div className='flex flex-row items-center justify-center gap-4'>
                 <FaCircleMinus 
@@ -174,7 +177,7 @@ export default function Ingredients() {
                   onClick={() => valueDecrease(row)} />
                   {row.in_stock}kg</div>
               </TableCell> 
-              <TableCell align="center"><div className='flex flex-row justify-center items-center gap-5'>
+              <TableCell align="center"><div className='flex flex-row justify-center items-center gap-3'>
                 <RiDeleteBin2Fill onClick={() => deleteItem(row)} className='text-red-500 text-3xl cursor-pointer'/>
                 {row.name !== 0 ? <div className='flex items-center text-green-600 font-semibold justify-center cursor-pointer' onClick={() => valueIncrease(row)}>
                   Order More<MdKeyboardDoubleArrowRight className='scale-150'/>
