@@ -33,10 +33,6 @@ export default function Login() {
   }, [user]);
   
   const loginWithGoogle = async () => { setIsClicked(true);
-    setTimeout(() => {
-      setIsClicked(false);
-    }, 100);
-  
     await signInWithPopup(firebaseAuth, provider)
         .then(userCred => {
             firebaseAuth.onAuthStateChanged(cred => {
@@ -89,10 +85,6 @@ const signUpWithEmailPass = async () => { setIsClicked(true);
 };
 
 const signInWithEmailPass = async () => { setIsClicked(true);
-  setTimeout(() => {
-    setIsClicked(false);
-  }, 100);
-
   if(userEmail !== '' || password !== '') {
     try {
       await signInWithEmailAndPassword(firebaseAuth, userEmail, password)
@@ -161,8 +153,8 @@ const signInWithEmailPass = async () => { setIsClicked(true);
 
             {!isSignUp 
               ? (<p className='text-slate-900'>Don't have an account?{" "} 
-                    <button className='text-yellow-950 underline font-semibold cursor-pointer bg-transparent'
-                    onClick={() => setIsSignUp(true)}
+                    <button className="text-yellow-950 underline font-semibold cursor-pointer bg-transparent"
+                    onClick={() => { setIsSignUp(true); setErrorMessage(''); }}
                     >
                         Sign-up Here
                     </button>
@@ -170,7 +162,7 @@ const signInWithEmailPass = async () => { setIsClicked(true);
               : (<p className='text-slate-900'>
                   Already have and account?{" "}
                     <button className='text-yellow-950 font-semibold underline cursor-pointer bg-transparent'
-                    onClick={() => setIsSignUp(false)}
+                    onClick={() =>{ setIsSignUp(false); setErrorMessage(''); }}
                     >
                         Sign-in Here
                     </button>
@@ -178,12 +170,12 @@ const signInWithEmailPass = async () => { setIsClicked(true);
               }
               {/* button section */}
               {isSignUp 
-                ? (<button className={`w-[70%] px-4 py-2 rounded-md bg-yellow-950 cursor-pointer text-white text-xl capitalize hover:bg-yellow-900 transition-all duration-150 ${isClicked ? 'transform scale-95' : ''}`}
-                    onClick={signUpWithEmailPass}>
+                ? (<button className={`${isClicked && "animate-smoothClick"} w-[70%] px-4 py-2 rounded-md bg-yellow-950 cursor-pointer text-white text-xl capitalize hover:bg-yellow-900 transition-all`}
+                    onClick={signUpWithEmailPass} onAnimationEnd={() => setIsClicked(false)}>
                     Sign Up
                    </button>)
-                : (<button className={`w-[70%] px-4 py-2 rounded-md bg-yellow-950 cursor-pointer text-white text-xl capitalize hover:bg-yellow-900 transition-all duration-150 ${isClicked ? 'transform scale-95' : ''}`}
-                    onClick={signInWithEmailPass}>
+                : (<button className={`${isClicked && "animate-smoothClick"} w-[70%] px-4 py-2 rounded-md bg-yellow-950 cursor-pointer text-white text-xl capitalize hover:bg-yellow-900 transition-all`}
+                    onClick={signInWithEmailPass} onAnimationEnd={() => setIsClicked(false)}>
                     Sign In
                    </button>)
                 }

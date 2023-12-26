@@ -5,12 +5,6 @@ import { app } from '../../../config/firebase.config'
 import { useSharedState } from '../SharedStateContext';
 
 export default function LeftOptions() {
-    // states handles by sharestate
-    // const [selectedType, setSelectedType] = useState('');
-    // const [selectedSize, setSelectedSize] = useState('');
-    // const [selectedToppings, setSelectedToppings] = useState([]);
-    // const [selectedFillings, setSelectedFillings] = useState([]);
-    // const [selectedSweetner, setSelectedSweetner] = useState('');
     const [data, setData] = useState([]);
     const db = getFirestore(app);
     const { sharedState, setSharedState } = useSharedState();

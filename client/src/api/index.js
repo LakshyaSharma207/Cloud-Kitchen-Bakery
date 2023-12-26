@@ -22,5 +22,3 @@ export const getAllUsers = async () => {
         return null;
     }
 }
-
-// get items to cart

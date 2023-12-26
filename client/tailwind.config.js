@@ -48,6 +48,22 @@ module.exports = {
       },
       colors: {
         themeColor: "#f0d7c0", 
+        transparentTheme: "rgba(240, 215, 192, 0.75)",
+      },
+      keyframes: {
+        wiggle: {
+          "0%, 100%": { transform: "rotate(-3deg)" },
+          "50%": { transform: "rotate(3deg)" }
+        },
+        smoothClick: {
+          "0%": { transform: "scale(1)" },
+          "50%": { transform: "scale(0.9)" },
+          "100%": { transform: "scale(1)" },
+        },
+      },
+      animation: {
+        wiggle: "wiggle 200ms ease-in-out",
+        smoothClick: "smoothClick 150ms ease-in-out",
       },
     },
   },

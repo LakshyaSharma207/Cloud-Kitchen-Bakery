@@ -7,3 +7,5 @@ export { default as jackDaniel } from "./jackDaniel.png";
 export { default as carrotCake } from "./carrotCake.jpg"; 
 export { default as veganCake } from "./veganCake.jpg"; 
 export { default as bakers } from "./bakers.jpeg"; 
+export { default as tempCake } from "./tempCake.png"; 
+// Images from Freepik and Adobe

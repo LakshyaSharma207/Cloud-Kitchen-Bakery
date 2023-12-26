@@ -9,6 +9,7 @@ import { getAuth } from 'firebase/auth';
 import { setUserDetails } from "./context/actions/userActions";
 import Dashboard from './components/Dashboard/Dashboard';
 import Customize from './components/Customize/Customize';
+import SuccessFul from './components/CakeCart/SuccessFull/SuccessFul';
 
 function App() {
   const firebaseAuth = getAuth(app);
@@ -34,6 +35,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path='/dashboard/*' element={<Dashboard />} />
         <Route path='/customize' element={<Customize />} />
+        <Route path='/ordersuccess' element={<SuccessFul />} />
       </Routes>
     </div>
   );

@@ -1,5 +1,5 @@
-import {getApp, getApps, initializeApp} from "firebase/app"
-import {getStorage} from "firebase/storage"
+import { getApp, getApps, initializeApp } from "firebase/app"
+import { getStorage } from "firebase/storage"
 
 const firebaseConfig = {
     apiKey: import.meta.env.VITE_APP_FIREBASE_API_KEY,

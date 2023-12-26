@@ -4,8 +4,12 @@ import React from 'react';
 import LeftOptions from './LeftOptions/LeftOptions';
 import RightPreview from './RightPreview/RightPreview';
 import { SharedStateProvider } from './SharedStateContext';
+import CakeCart from '../CakeCart/CakeCart';
+import { useSelector } from 'react-redux';
 
 export default function Customize() {
+  const cartState = useSelector((state) => state.cart.isOpen)
+
   return (
     <main className='top-0 w-screen min-h-screen flex items-center justify-start flex-col' style={{backgroundImage: `url(${BgRepeat})`, backgroundPosition: 'center', backgroundSize: 'cover', backgroundRepeat: 'repeat-y'}}> 
         <Header />
@@ -14,6 +18,8 @@ export default function Customize() {
           <LeftOptions />
           <RightPreview />
         </SharedStateProvider>
+
+        {cartState ? <CakeCart /> : ''}
     </main>
   );
 };
