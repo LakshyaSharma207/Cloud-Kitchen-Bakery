@@ -11,6 +11,7 @@ import { FaUserTag } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import { FaLocationDot } from "react-icons/fa6";
 import { setUserDetails } from '../../context/actions/userActions';
+import CakeCart from '../CakeCart/CakeCart';
 
 export default function Profile() {
   const user = useSelector((state) => state.user);
@@ -23,6 +24,7 @@ export default function Profile() {
   const navigate = useNavigate();
   const auth = getAuth(app);
   const dispatch = useDispatch();
+  const cartState = useSelector((state) => state.cart.isOpen)
 
   const [isClicked, setIsClicked] = useState(false);
 
@@ -171,6 +173,7 @@ export default function Profile() {
             </div>
           </div>
         </main>
+        {cartState ? <CakeCart /> : ''}
     </div>
   )
 }
