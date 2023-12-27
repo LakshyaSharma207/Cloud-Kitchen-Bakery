@@ -94,42 +94,42 @@ export default function CakeCart() {
     }
   }
 
-  // const updateIngredientsCollection = async (cartItems) => {
-  //   try {
-  //     for (const item of cartItems) {
-  //       await updateIngredient('Toppings', item.Toppings);
+  const updateIngredientsCollection = async (cartItems) => {
+    try {
+      for (const item of cartItems) {
+        await updateIngredient('Toppings', item.Toppings);
   
-  //       await updateIngredient('Fillings', item.Fillings);
+        await updateIngredient('Fillings', item.Fillings);
   
-  //       await updateIngredient('Sweetener', item.Sweetner);
+        await updateIngredient('Sweetener', item.Sweetner);
   
-  //       await updateIngredient('Flour', item.Flour);
-  //     }
+        await updateIngredient('Flour', item.Flour);
+      }
   
-  //     console.log('Ingredients collection updated successfully.');
-  //   } catch (error) {
-  //     console.error('Error updating Ingredients collection:', error);
-  //   }
-  // };
+      console.log('Ingredients collection updated successfully.');
+    } catch (error) {
+      console.error('Error updating Ingredients collection:', error);
+    }
+  };
   
-  // // Helper function to update a specific ingredient
-  // const updateIngredient = async (ingredientType, names) => {
-  //   try {
-  //     for (const name of names) {
-  //       const ingredientDocRef = doc(db, 'Ingredients');
-  //       const ingredientSnapshot = await getDoc(ingredientsCollectionRef.where('name', '==', name));
-  //       const currentInStock = ingredientSnapshot.data().in_stock;
-  //       const needToOrder = ingredientSnapshot.data().need_to_order;
-  //       const stockChange = currentInStock - 1;
-  //       const needChange = needToOrder + 1;
+  // Helper function to update a specific ingredient
+  const updateIngredient = async (ingredientType, names) => {
+    try {
+      for (const name of names) {
+        const ingredientDocRef = doc(db, 'Ingredients');
+        const ingredientSnapshot = await getDoc(ingredientsCollectionRef.where('name', '==', name));
+        const currentInStock = ingredientSnapshot.data().in_stock;
+        const needToOrder = ingredientSnapshot.data().need_to_order;
+        const stockChange = currentInStock - 1;
+        const needChange = needToOrder + 1;
   
-  //       // Update the field you want in the 'Ingredients' document
-  //       await updateDoc(ingredientDocRef, { in_stock: stockChange, need_to_order: needChange });
-  //     }
-  //   } catch (error) {
-  //     console.error(`Error updating ${ingredientType} ingredient:`, error);
-  //   }
-  // };  
+        // Update the field you want in the 'Ingredients' document
+        await updateDoc(ingredientDocRef, { in_stock: stockChange, need_to_order: needChange });
+      }
+    } catch (error) {
+      console.error(`Error updating ${ingredientType} ingredient:`, error);
+    }
+  };  
     
   return (
     <div
