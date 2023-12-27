@@ -23,8 +23,4 @@ admin.initializeApp({
 const userRoute = require("./routes/user.js");
 app.use("/api/users", userRoute);
 
-// cart route
-const cartRoute = require("./routes/cart.js");
-app.use("/api/cart", cartRoute);
-
 exports.app = functions.https.onRequest(app)

@@ -8,6 +8,8 @@ import { MdPlaylistAddCircle } from "react-icons/md";
 import { useDispatch, useSelector } from 'react-redux';
 import { getAuth } from 'firebase/auth';
 import { app } from '../../config/firebase.config';
+import { setUserNull } from '../../context/actions/userActions';
+import { persistor } from '../../main';
 
 export default function AdminPanel() {
     const location = useLocation();
@@ -20,15 +22,22 @@ export default function AdminPanel() {
         return isActive 
             ? 'flex flex-row items-center gap-5 text-2xl text-yellow-950 font-semibold px-10 py-2' 
             : 'flex flex-row items-center gap-5 text-xl text-yellow-800 font-semibold px-10 py-2 hover:text-yellow-950 duration-100 transition-all ease-in-out';
-      }
-      function signOut() {
-        firebaseAuth.signOut()
-            .then(() => {
-                dispatch(setUserNull());
-                navigate('/login', {replace: true});
-            })
-            .catch((error) => console.error("Error!!: ", error));
     }
+    async function signOut() {
+        try {
+          await firebaseAuth.signOut();
+          dispatch(setUserNull());
+          // Clear local storage
+          localStorage.removeItem('user');
+          // Clear persisted state
+          await persistor.purge();
+
+          window.location.reload();
+        } catch (error) {
+          console.error('Error signing out:', error);
+        }
+    }  
+
     return (
     <div className='h-full py-12 flex flex-col bg-themeColor backdrop-blur-md shadow-md shadow-themeColor w-200 gap-3'>
       <NavLink to={'/'}>
@@ -62,7 +71,7 @@ export default function AdminPanel() {
             <div className='relative cursor-pointer w-12 h-12 rounded-full flex items-center justify-center overflow-hidden hover:scale-125 transition-transform'>
                 <img 
                 className="w-full h-full object-cover"
-                src={user?.picture ? user?.picture : Avatar} 
+                src={user?.photoURL ? user?.photoURL : Avatar} 
                 alt='avatar' 
                 onClick={() => navigate('/profile', {replace: true})}
                 referrerPolicy = "no-referrer"

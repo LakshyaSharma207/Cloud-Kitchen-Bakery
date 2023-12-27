@@ -11,15 +11,19 @@ export default function Customize() {
   const cartState = useSelector((state) => state.cart.isOpen)
 
   return (
-    <main className='top-0 w-screen min-h-screen flex items-center justify-start flex-col' style={{backgroundImage: `url(${BgRepeat})`, backgroundPosition: 'center', backgroundSize: 'cover', backgroundRepeat: 'repeat-y'}}> 
-        <Header />
-        <h2 className="text-3xl font-bold mb-4 text-center mt-20 text-yellow-950">Customize Your Cake</h2>
-        <SharedStateProvider>
-          <LeftOptions />
-          <RightPreview />
-        </SharedStateProvider>
+    <main className='top-0 w-full h-full flex items-center justify-start flex-col'> 
+      <img 
+        src={BgRepeat} 
+        className=' object-cover absolute top-0 left-0 bg-repeat-y'
+        alt="background" 
+        />
+      <h2 className="text-3xl font-bold mb-4 text-center mt-20 z-10 text-yellow-950">Customize Your Cake</h2>
+      <SharedStateProvider>
+        <LeftOptions />
+        <RightPreview />
+      </SharedStateProvider>
 
-        {cartState ? <CakeCart /> : ''}
+      {cartState ? <CakeCart /> : ''}
     </main>
   );
 };

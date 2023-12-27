@@ -3,6 +3,7 @@ import Selection from '../Selection/Selection'
 import { collection, getDocs, getFirestore } from 'firebase/firestore';
 import { app } from '../../../config/firebase.config'
 import { useSharedState } from '../SharedStateContext';
+import { tempCake } from '../../../assets/index'
 
 export default function LeftOptions() {
     const [data, setData] = useState([]);
@@ -20,11 +21,9 @@ export default function LeftOptions() {
             
             querySnapshot.forEach((doc) => {
               newData.push({ 
-                id: doc.id,
                 icon: doc.data().icon,
                 in_stock: doc.data().in_stock,
                 name: doc.data().name,
-                need_to_order: doc.data().need_to_order,
                 price: doc.data().price,
                 type: doc.data().type,
                });
@@ -44,7 +43,7 @@ export default function LeftOptions() {
     } 
     useEffect(() => {
       setSharedState((prevState) => ({ ...prevState, selectedPrice: calculatePrice() }));
-    }, [sharedState.selectedType, sharedState.selectedSize, sharedState.selectedToppings, sharedState.selectedFillings, sharedState.selectedSweetner]);
+    }, [sharedState.selectedType, sharedState.selectedSize, sharedState.selectedToppings, sharedState.selectedFillings, sharedState.selectedSweetner, sharedState.selectedFlour]);
 
     function handleTypeChange(type) {
       setSharedState((prevState) => ({ ...prevState, selectedType: type }));
@@ -55,21 +54,41 @@ export default function LeftOptions() {
     }
 
     function handleToppingChange(topping) {
+      if(isInStock(topping)) {
         const updatedToppings = sharedState.selectedToppings.includes(topping)
             ? sharedState.selectedToppings.filter((st) => st !== topping)
             : [...sharedState.selectedToppings, topping];
         setSharedState((prevState) => ({ ...prevState, selectedToppings: updatedToppings }));
+      } else {
+        console.log(`${topping} is out of stock`);
+      }
     }
 
     function handleFillingChange(filling) {
+      if(isInStock(filling)) {
         const updatedFillings = sharedState.selectedFillings.includes(filling)
             ? sharedState.selectedFillings.filter((st) => st !== filling)
             : [...sharedState.selectedFillings, filling];
         setSharedState((prevState) => ({ ...prevState, selectedFillings: updatedFillings }));
+      } else {
+        console.log(`${filling} is out of stock`);
+      }
     }
 
     function handleSweetnerChange(sweetner) {
+      if (isInStock(sweetner)) {
         setSharedState((prevState) => ({ ...prevState, selectedSweetner: sweetner }));
+      } else {
+        console.log(`${sweetner} is out of stock`);
+      }
+    }
+
+    function handleFlourChange(flour) {
+      if (isInStock(flour)) {
+        setSharedState((prevState) => ({ ...prevState, selectedFlour: flour }));
+      } else {
+        console.log(`${flour} is out of stock`);
+      }
     }
 
     function calculatePrice() {
@@ -101,6 +120,13 @@ export default function LeftOptions() {
         }); 
         return totalPrice;
     }
+    function isInStock(item) {
+      return data.some((ing) => ing.name === item && ing.in_stock > 0);
+    }
+    function getIcon(item) {
+      const matchingItem = data.find((a) => a.name === item);
+      return matchingItem ? matchingItem.icon : tempCake;
+    }
 
   return (
     <div className="flex flex-col items-start justify-center p-12 absolute left-10 top-28 mx-auto max-w-2xl text-yellow-950">
@@ -119,12 +145,41 @@ export default function LeftOptions() {
         />
 
         <Selection
+        items={getIngredientsByType('Flour')}
+        selectedItems={sharedState.selectedFlour}
+        handleSelectionChange={handleFlourChange}
+        title="Select Flour:"
+        />
+        <div className='flex items-center justify-center gap-10 my-5'>
+          <img 
+            className="h-20 object-cover"
+            src={getIcon(sharedState.selectedFlour)} 
+            alt='cake image' 
+          />
+          <div>
+            <p className='font-semibold ml-2'>Price: {getPrice(sharedState.selectedFlour, 0)}</p>
+            <p className='font-semibold mx-2 mt-2 underline'>{isInStock(sharedState.selectedFlour) ? 'Available' : 'Not Available'}</p>
+          </div>
+        </div>
+        
+        <Selection
         items={getIngredientsByType('Topping')}
         selectedItems={sharedState.selectedToppings}
         handleSelectionChange={handleToppingChange}
         title="Select Toppings:"
         />
-        <p className='text-gray-500 text-sm mb-5'>*Can Select Multiple Toppings</p>
+        <p className='text-gray-500 text-sm'>*Can Select Multiple Toppings</p>
+        <div className='flex items-center justify-center gap-10 my-5'>
+          <img 
+            className="h-20 object-cover"
+            src={getIcon(sharedState.selectedToppings.slice(-1)[0])} 
+            alt='cake image' 
+          />
+          <div>
+            <p className='font-semibold ml-2'>Price: {getPrice(sharedState.selectedToppings.slice(-1), 0)}</p>
+            <p className='font-semibold mx-2 mt-2 underline'>{isInStock(sharedState.selectedToppings.slice(-1)[0]) ? 'Available' : 'Not Available'}</p>
+          </div>
+        </div>
 
         <Selection
         items={getIngredientsByType('Filling')}
@@ -132,7 +187,18 @@ export default function LeftOptions() {
         handleSelectionChange={handleFillingChange}
         title="Select Fillings:"
         />
-        <p className='text-gray-500 text-sm mb-5'>*Can Select Multiple Fillings</p>
+        <p className='text-gray-500 text-sm'>*Can Select Multiple Fillings</p>
+        <div className='flex items-center justify-center gap-10 my-5'>
+          <img 
+            className="h-20 object-cover"
+            src={getIcon(sharedState.selectedFillings.slice(-1)[0])} 
+            alt='cake image' 
+          />
+          <div>
+            <p className='font-semibold ml-2'>Price: {getPrice(sharedState.selectedFillings.slice(-1), 0)}</p>
+            <p className='font-semibold mx-2 mt-2 underline'>{isInStock(sharedState.selectedFillings.slice(-1)[0]) ? 'Available' : 'Not Available'}</p>
+          </div>
+        </div>
         
         <Selection
         items={getIngredientsByType('Sweetner')}
@@ -140,6 +206,17 @@ export default function LeftOptions() {
         handleSelectionChange={handleSweetnerChange}
         title="Select Sweetner:"
         />
+        <div className='flex items-center justify-center gap-10 my-5'>
+          <img 
+            className="h-20 object-cover"
+            src={getIcon(sharedState.selectedSweetner)} 
+            alt='cake image' 
+          />
+          <div>
+            <p className='font-semibold ml-2'>Price: {getPrice([sharedState.selectedSweetner], 0)}</p>
+            <p className='font-semibold mx-2 mt-2 underline'>{isInStock(sharedState.selectedSweetner) ? 'Available' : 'Not Available'}</p>
+          </div>
+        </div>
     </div>
   )
 }

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
+import { Link, NavLink, useLocation } from 'react-router-dom';
 import { Logo, Avatar } from '../../assets/index';
 import { FaCartArrowDown } from "react-icons/fa";
 import { useDispatch, useSelector } from 'react-redux';
@@ -7,13 +7,13 @@ import { setUserNull } from '../../context/actions/userActions'
 import { setCartState } from '../../context/actions/cartAction';
 import { getAuth } from 'firebase/auth';
 import { app } from '../../config/firebase.config';
+import { persistor } from '../../main';
 
 export default function Header() {
     const location = useLocation();
     const user = useSelector((state) => state.user)
     const [isDropdownOpen, setDropdownOpen] = useState(false);
     const firebaseAuth = getAuth(app);
-    const navigate = useNavigate();
     const dispatch = useDispatch();
 
     function toggleDropdown() {
@@ -26,17 +26,21 @@ export default function Header() {
     }
 
     async function signOut() {
-        firebaseAuth.signOut()
-            .then(() => {
-                console.log("User signed out successfully");
-                dispatch(setUserNull());
-                navigate("/login", {replace: true});
-            })
-            .catch((error) => console.error("Error!!: ", error));
-    }
-    
+        try {
+          await firebaseAuth.signOut();
+          dispatch(setUserNull());
+          // Clear local storage
+          localStorage.removeItem('user');
+          // Clear persisted state
+          await persistor.purge();
+
+          window.location.reload();
+        } catch (error) {
+          console.error('Error signing out:', error);
+        }
+      }
   return (
-    <header className='fixed inset-x-0 z-10 top-0 flex items-center justify-between px-5 bg-transparentTheme shadow-md'>
+    <header className='fixed inset-x-0 z-10 py-1 top-0 flex items-center justify-between px-5 bg-transparentTheme shadow-md'>
         <NavLink to={'/'}>
             <img src={Logo} className='w-[280px]' alt='logo' />
         </NavLink>
@@ -57,14 +61,14 @@ export default function Header() {
                     <div className='cursor-pointer relative' onClick={() => dispatch(setCartState())}>
                         <FaCartArrowDown className='text-3xl text-yellow-950' />
                         <div className='w-5 h-5 rounded-full bg-yellow-500 absolute -top-3 -right-1 flex items-center justify-center'>
-                            <p className='font-semibold text-sm text-yellow-950'>2</p>
+                            <p className='font-semibold text-sm text-yellow-950'>!</p>
                         </div>
                     </div>
                     {/* user selector dropdown */}
                     <div className='relative cursor-pointer w-12 h-12 rounded-full overflow-hidden hover:scale-110 transition-transform' onClick={toggleDropdown}>
                         <img 
                         className="w-full h-full object-cover"
-                        src={user?.picture ? user?.picture : Avatar} 
+                        src={user?.photoURL ? user?.photoURL : Avatar} 
                         alt='avatar' 
                         referrerPolicy = "no-referrer"
                         />

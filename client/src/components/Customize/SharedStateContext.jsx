@@ -6,6 +6,7 @@ export const SharedStateProvider = ({ children }) => {
   const [sharedState, setSharedState] = useState({
     selectedType: '',
     selectedSize: '',
+    selectedFlour: '',
     selectedToppings: [],
     selectedFillings: [],
     selectedSweetner: '',

@@ -40,6 +40,7 @@ export default function Login() {
                     cred.getIdToken().then(token => {
                         validateUserJWTToken(token)
                             .then(data => {
+                              localStorage.setItem('user', JSON.stringify(data));
                               dispatch(setUserDetails(data));
                         });
                         navigate("/", {replace: true})
@@ -67,7 +68,8 @@ const signUpWithEmailPass = async () => { setIsClicked(true);
                           cred.getIdToken().then(token => {
                               validateUserJWTToken(token)
                                   .then(data => {
-                                      dispatch(setUserDetails(data));
+                                    localStorage.setItem('user', JSON.stringify(data));
+                                    dispatch(setUserDetails(data));
                               });
                               navigate("/", {replace: true})
                           })
@@ -94,7 +96,8 @@ const signInWithEmailPass = async () => { setIsClicked(true);
                       cred.getIdToken().then(token => {
                           validateUserJWTToken(token)
                               .then(data => {
-                                  dispatch(setUserDetails(data));
+                                localStorage.setItem('user', JSON.stringify(data));
+                                dispatch(setUserDetails(data));
                           });
                           navigate("/", {replace: true})
                       })
