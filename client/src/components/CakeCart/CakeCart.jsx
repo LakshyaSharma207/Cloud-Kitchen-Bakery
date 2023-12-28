@@ -34,7 +34,6 @@ export default function CakeCart() {
           setCartItems(items);
           const sumPrice = items.reduce((total, item) => total + parseFloat(item.Price), 0);
           setTotalPrice(sumPrice);
-          console.log(items);
         } catch (err) {
           console.error('Error fetching cart items: ', err);
         }
@@ -64,15 +63,15 @@ export default function CakeCart() {
     const cakeOrdersCollectionRef = collection(userDocRef, 'cakeOrders'); 
     updateIngredientsCollection();
   
-    // try {
-    //   for (const item of cartItems) {
-    //     const itemDocRef = doc(cakeOrdersCollectionRef, item.id);
-    //     await updateDoc(itemDocRef, { hasOrdered: true, payment: selectedPaymentMethod });
-    //   }
-    //   navigate("/ordersuccess", { replace: true });
-    // } catch (error) {
-    //   console.error('Error checking out:', error);
-    // }
+    try {
+      for (const item of cartItems) {
+        const itemDocRef = doc(cakeOrdersCollectionRef, item.id);
+        await updateDoc(itemDocRef, { hasOrdered: true, payment: selectedPaymentMethod });
+      }
+      navigate("/ordersuccess", { replace: true });
+    } catch (error) {
+      console.error('Error checking out:', error);
+    }
   }
 
   const deleteItem = async (itemId) => {
@@ -98,9 +97,9 @@ export default function CakeCart() {
   
         await updateIngredient('Fillings', item.Fillings);
   
-        await updateIngredient('Sweetener', item.Sweetner);
+        await updateIngredient('Sweetener', [item.Sweetner]);
   
-        await updateIngredient('Flour', item.Flour);
+        await updateIngredient('Flour', [item.Flour]);
       }
   
       console.log('Ingredients collection updated successfully.');
@@ -114,21 +113,22 @@ export default function CakeCart() {
     try {
       for (const name of names) {
         const ingredientsCollectionRef = collection(db, 'Ingredients');
-        const querySnapshot = await getDocs(query(ingredientsCollectionRef), where('name', '==', name));
-        console.log(querySnapshot);
-        // if (!querySnapshot.empty) {
-        //   const ingredientDocRef = querySnapshot.docs[0].ref;
-        //   const ingredientSnapshot = await getDoc(ingredientDocRef);
-
-        //   const currentInStock = ingredientSnapshot.data().in_stock
-        //   const needToOrder = ingredientSnapshot.data().need_to_order;
-        //   const stockChange = currentInStock - 1;
-        //   const needChange = needToOrder + 1;
-  
-        // await updateDoc(ingredientDocRef, { in_stock: stockChange, need_to_order: needChange });
-        // }else {
-        //   console.error(`Ingredient not found: ${name}`);
-        // }
+        const nameQuery = query(ingredientsCollectionRef, where('name', '==', name));
+        const querySnapshot = await getDocs(nameQuery);
+        
+        if (!querySnapshot.empty) {
+          for (const docRef of querySnapshot.docs) {
+            const currentData = docRef.data();
+            const updatedInStock = currentData.in_stock - 1; 
+            const updatedOrder = (currentData.need_to_order || 0) + 1;
+    
+            await updateDoc(doc(db, 'Ingredients', currentData.id), { 
+              in_stock: updatedInStock,
+              need_to_order: updatedOrder });
+          }    
+        }else {
+          console.error(`Ingredient not found: ${name}`);
+        }
       }
     } catch (error) {
       console.error(`Error updating ${ingredientType} ingredient:`, error);
