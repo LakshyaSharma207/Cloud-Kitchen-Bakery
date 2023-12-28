@@ -39,13 +39,12 @@ export default function Profile() {
         displayName: newUsername || undefined,
         email: newEmail || undefined,
       });
-      // photoURL: newLocation || undefined
       if(newLocation) updateLocation();
       console.log('Profile updated successfully!');
     } catch (error) {
       console.error('Error updating profile:', error);
     }
-    // window.location.reload();
+    window.location.reload();
   }
   const updateLocation = async() => {
     const userId = user.uid;
