@@ -1,3 +1,4 @@
-# Cloud-Kitchen-Bakery
-Need to edit my cart logic
-![image](https://github.com/LakshyaSharma207/Cloud-Kitchen-Bakery/assets/124886897/ad03b92c-3bf9-498d-a6a2-f10b7c738278)
+# Cloud-Kitchen-Bakery: Sweet Tooth
+
+## This Project was made with React-Redux and Firebase on backend.
+## It was made for CS50x's Final Project and the idea is based on one of the prototypes I devloped in my Design Thinking Class. More information about the project in Problem Statement.docx
