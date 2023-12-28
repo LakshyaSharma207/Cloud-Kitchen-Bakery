@@ -20,7 +20,7 @@
 
   inside project folder install firebase-tools and then `firebase login` with your credentials
 
-  My Project uses tailwindcss so don't forget to install that in client as well.
+  My Project uses tailwindcss so don't forget to install that as well.
 
 Once the above steps are over - 
 
