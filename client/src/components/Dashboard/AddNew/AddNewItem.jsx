@@ -44,8 +44,8 @@ export default function AddNewItem() {
         console.error('Please provide item name, type, image and quantity.');
         return;
       }
-      
-      const docRef = await addDoc(collection(db, 'Ingredients'), {
+      const collectionRef = collection(db, 'Ingredients');  
+      const docRef = await addDoc(collectionRef, {
         name: itemName,
         in_stock: parseInt(itemQuantity, 10),
         need_to_order: 0,
@@ -54,6 +54,10 @@ export default function AddNewItem() {
         icon: itemURL, 
       });
       console.log('Document added with ID: ', docRef.id);
+      const newDocId = docRef.id;
+      // Updates the document to include the ID
+      const updatedDocRef = doc(collectionRef, newDocId);
+      await updateDoc(updatedDocRef, { id: newDocId });
   
       setName('');
       setQuantity(0);
