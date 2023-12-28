@@ -40,7 +40,7 @@ export default function Header() {
         }
       }
   return (
-    <header className='fixed inset-x-0 z-10 py-1 top-0 flex items-center justify-between px-5 bg-transparentTheme shadow-md'>
+    <header className='fixed inset-x-0 z-20 py-1 top-0 flex items-center justify-between px-5 bg-transparentTheme shadow-md'>
         <NavLink to={'/'}>
             <img src={Logo} className='w-[280px]' alt='logo' />
         </NavLink>
