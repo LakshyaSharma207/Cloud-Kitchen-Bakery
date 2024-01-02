@@ -4,7 +4,7 @@
 #### It was made for CS50x's Final Project and the idea is based on one of the prototypes I devloped in my Design Thinking Class. More information about the project in Problem Statement.docx
 
 #### Current Issues: Profile and cart actions creating seperate firestore documents for one user. Dashboard Home using hardcoded graphs due to lack of more information. 
-#### Demonstration: (check /images folder or below youtube link)
+#### Demonstration: (click below youtube link)
 [![Demonstration](https://markdown-videos-api.jorgenkh.no/url?url=https%3A%2F%2Fyoutu.be%2FyEnegXtgVWY)](https://youtu.be/yEnegXtgVWY)
 
 ## Getting Started
