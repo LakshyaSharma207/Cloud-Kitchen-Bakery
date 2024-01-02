@@ -7,8 +7,6 @@
 #### Demonstration: (check /images folder or below youtube link)
 [![Demonstration](https://markdown-videos-api.jorgenkh.no/url?url=https%3A%2F%2Fyoutu.be%2FyEnegXtgVWY)](https://youtu.be/yEnegXtgVWY)
 
-https://youtu.be/yEnegXtgVWY
-
 ## Getting Started
 - Create your Firebase Project in http://console.firebase.google.com.
   
