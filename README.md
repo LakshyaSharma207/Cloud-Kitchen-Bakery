@@ -5,6 +5,7 @@
 
 #### Current Issues: Profile and cart actions creating seperate firestore documents for one user. Dashboard Home using hardcoded graphs due to lack of more information. 
 #### Demostration: 
+![Demo 1](images/Demo 1.mp4)
 
 ## Getting Started
 - Create your Firebase Project in http://console.firebase.google.com.
