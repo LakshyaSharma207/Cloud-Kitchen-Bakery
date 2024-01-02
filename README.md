@@ -4,8 +4,9 @@
 #### It was made for CS50x's Final Project and the idea is based on one of the prototypes I devloped in my Design Thinking Class. More information about the project in Problem Statement.docx
 
 #### Current Issues: Profile and cart actions creating seperate firestore documents for one user. Dashboard Home using hardcoded graphs due to lack of more information. 
-#### Demostration: 
-![Demo 1](/images/Demo 1.mp4)
+#### Demostration: (check /images folder or below youtube link)
+[![](https://markdown-videos-api.jorgenkh.no/youtube/{yEnegXtgVWY})](https://youtu.be/{yEnegXtgVWY})
+https://youtu.be/yEnegXtgVWY
 
 ## Getting Started
 - Create your Firebase Project in http://console.firebase.google.com.
