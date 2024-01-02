@@ -3,7 +3,8 @@
 ## This Project was made with Vite in React-Redux and Firebase on backend.
 #### It was made for CS50x's Final Project and the idea is based on one of the prototypes I devloped in my Design Thinking Class. More information about the project in Problem Statement.docx
 
-#### Current Issues: Profile and cart actions creating seperate firestore documents for one user. Dashboard Home using hardcoded information due to lack of more information.
+#### Current Issues: Profile and cart actions creating seperate firestore documents for one user. Dashboard Home using hardcoded graphs due to lack of more information. 
+#### Demostration: 
 
 ## Getting Started
 - Create your Firebase Project in http://console.firebase.google.com.
