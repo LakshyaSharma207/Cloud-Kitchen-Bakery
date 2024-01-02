@@ -6,6 +6,7 @@
 #### Current Issues: Profile and cart actions creating seperate firestore documents for one user. Dashboard Home using hardcoded graphs due to lack of more information. 
 #### Demonstration: (check /images folder or below youtube link)
 [![Demonstration](https://markdown-videos-api.jorgenkh.no/url?url=https%3A%2F%2Fyoutu.be%2FyEnegXtgVWY)](https://youtu.be/yEnegXtgVWY)
+
 https://youtu.be/yEnegXtgVWY
 
 ## Getting Started
